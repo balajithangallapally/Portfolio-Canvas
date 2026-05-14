@@ -1,0 +1,49 @@
+{
+  "name": "Balaji Thangallapally",
+  "role": "Full Stack Developer / Data Science Student",
+  "tagline": "Building intelligent systems and scalable web applications",
+  "about": "I am a B.Tech Data Science student with strong foundations in backend development, REST APIs, and scalable systems. I focus on building real-world applications, data-driven tools, and efficient backend architectures.",
+  "skills": {
+    "languages": ["Python", "JavaScript", "SQL"],
+    "frontend": ["React", "Next.js", "Tailwind CSS", "HTML", "CSS"],
+    "backend": ["FastAPI", "REST APIs"],
+    "tools": ["Git", "GitHub", "Streamlit"],
+    "core": ["Data Structures & Algorithms", "DBMS", "Operating Systems", "Computer Networks"]
+  },
+  "projects": [
+    {
+      "name": "AutoInsight",
+      "description": "AI-powered business intelligence platform for automated data processing and insights.",
+      "tech": ["FastAPI", "Streamlit", "Python"],
+      "features": ["REST API-based backend architecture", "Interactive dashboard for visualization", "Modular and scalable system design"],
+      "github": "https://github.com/balajithangallapally/AutoInsight",
+      "live": ""
+    },
+    {
+      "name": "Visual Vocalizer",
+      "description": "Speech processing system that analyzes lip movement patterns from video input.",
+      "tech": ["Python"],
+      "features": ["Frame processing pipeline", "Feature extraction system", "Optimized sequential data handling"],
+      "github": "",
+      "live": ""
+    },
+    {
+      "name": "E-commerce Platform",
+      "description": "Responsive web interface with optimized UI/UX and reusable components.",
+      "tech": ["HTML", "CSS", "JavaScript"],
+      "features": ["Responsive design", "Reusable UI components", "Improved navigation and usability"],
+      "github": "",
+      "live": ""
+    }
+  ],
+  "education": {
+    "degree": "B.Tech in Computer Science (Data Science)",
+    "institute": "Marri Laxman Reddy Institute of Technology",
+    "year": "2025"
+  },
+  "links": {
+    "github": "https://github.com/balajithangallapally",
+    "linkedin": "https://linkedin.com/in/balaji-thangallapally",
+    "email": "balu2109th@gmail.com"
+  }
+}

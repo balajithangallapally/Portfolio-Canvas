@@ -1,44 +1,50 @@
-# [Project name]
+# Balaji Thangallapally — Portfolio
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+A modern personal portfolio website for Balaji Thangallapally, a Full Stack Developer and Data Science student. Features immersive dark UI, animated particle hero, smooth scroll animations, and interactive project cards.
 
 ## Run & Operate
 
+- `pnpm --filter @workspace/portfolio run dev` — run the portfolio (port auto-assigned)
 - `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
-- `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
-- `pnpm --filter @workspace/db run push` — push DB schema changes (dev only)
-- Required env: `DATABASE_URL` — Postgres connection string
 
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
-- Validation: Zod (`zod/v4`), `drizzle-zod`
-- API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Frontend: React + Vite, Tailwind CSS, Framer Motion, GSAP, HTML5 Canvas 2D particles
+- UI: shadcn/ui, next-themes (dark/light mode), lucide-react, react-icons
+- API: Express 5 (shared api-server, not used by portfolio)
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/portfolio/src/data/portfolio.json` — all user data (name, skills, projects, links)
+- `artifacts/portfolio/src/components/` — all UI components (Navbar, Hero, About, Skills, Projects, etc.)
+- `artifacts/portfolio/src/components/HeroCanvas.tsx` — HTML5 Canvas 2D particle animation (mouse-reactive)
+- `artifacts/portfolio/src/index.css` — full dark/light theme with CSS custom properties
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Single-page app with no backend (static portfolio)
+- All content driven from `portfolio.json` — no hardcoded strings in components
+- HTML5 Canvas 2D used for particles instead of Three.js WebGL (WebGL not available in Replit sandbox)
+- Dark-first theme with next-themes for light/dark toggle
+- Framer Motion for scroll-triggered reveals and staggered animations; GSAP for navbar scroll effect
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+Full personal portfolio with: animated hero section with particle field, about section with glassmorphism cards, skills grid with hover animations, project cards with modal details, education timeline, and contact section with copy-to-clipboard email.
 
 ## User preferences
 
-_Populate as you build — explicit user instructions worth remembering across sessions._
+- No emojis in UI
+- All external links open in new tabs
+- Mobile-first responsive design
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- WebGL (Three.js WebGLRenderer) is not available in the Replit sandbox — use HTML5 Canvas 2D instead
+- Google Font imports must come before `@import "tailwindcss"` in index.css
 
 ## Pointers
 
