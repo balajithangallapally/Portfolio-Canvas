@@ -17,37 +17,52 @@ import bg3 from "@assets/file_000000002fd8720680bb9b4c69769fb8_1778784308797.png
 
 interface SectionBgProps {
   src: string;
-  objectPosition: string;
+  position: string;
   overlay: string;
   children: React.ReactNode;
 }
 
 /**
- * Wraps one or more sections with a static background image.
- * The image is absolutely positioned inside a relative container —
- * it never scrolls, shifts, or moves. Only content scrolls over it.
+ * Each section group gets its own background image locked to the viewport
+ * using CSS background-attachment: fixed. The background never moves —
+ * only the section content scrolls over it. Each section is independent.
  */
-function SectionBg({ src, objectPosition, overlay, children }: SectionBgProps) {
+function SectionBg({ src, position, overlay, children }: SectionBgProps) {
   return (
-    <div className="relative overflow-hidden">
-      {/* Background image layer — covers the full wrapper, never moves */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={src}
-          alt=""
-          aria-hidden="true"
-          draggable={false}
-          className="w-full h-full object-cover select-none pointer-events-none"
-          style={{ objectPosition }}
-        />
-        {/* Base dark veil for consistent readability */}
-        <div className="absolute inset-0 bg-black/40" />
-        {/* Directional gradient overlay */}
-        <div className="absolute inset-0" style={{ background: overlay }} />
-      </div>
-
-      {/* Content scrolls normally on top of the fixed-in-place background */}
-      <div className="relative z-10">
+    <div
+      style={{
+        position: "relative",
+        backgroundImage: `url(${src})`,
+        backgroundAttachment: "fixed",
+        backgroundSize: "cover",
+        backgroundPosition: position,
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* Consistent dark veil across all sections */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: "rgba(0,0,0,0.42)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+      {/* Directional gradient for text readability */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          background: overlay,
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+      {/* Content — scrolls normally above the locked background */}
+      <div style={{ position: "relative", zIndex: 2 }}>
         {children}
       </div>
     </div>
@@ -85,7 +100,7 @@ export default function Home() {
             */}
             <SectionBg
               src={bg1}
-              objectPosition="left center"
+              position="left center"
               overlay="linear-gradient(to right, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.72) 100%)"
             >
               <Hero />
@@ -97,7 +112,7 @@ export default function Home() {
             */}
             <SectionBg
               src={bg2}
-              objectPosition="center center"
+              position="center center"
               overlay="rgba(0,0,0,0.45)"
             >
               <About />
@@ -112,7 +127,7 @@ export default function Home() {
             */}
             <SectionBg
               src={bg3}
-              objectPosition="right center"
+              position="right center"
               overlay="linear-gradient(to left, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.25) 45%, rgba(0,0,0,0.72) 100%)"
             >
               <Projects />
