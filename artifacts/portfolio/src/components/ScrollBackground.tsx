@@ -63,23 +63,46 @@ export function ScrollBackground() {
       setActiveIndex(best);
     };
 
-    const observers: IntersectionObserver[] = [];
+    let observers: IntersectionObserver[] = [];
 
-    Object.keys(SECTION_TO_BG).forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => {
-          ratios[id] = entry.intersectionRatio;
-          pickActive();
-        },
-        { threshold: Array.from({ length: 21 }, (_, i) => i / 20) }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
+    const attachObservers = () => {
+      // Detach any previous observers
+      observers.forEach((o) => o.disconnect());
+      observers = [];
 
-    return () => observers.forEach((o) => o.disconnect());
+      Object.keys(SECTION_TO_BG).forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const obs = new IntersectionObserver(
+          ([entry]) => {
+            ratios[id] = entry.intersectionRatio;
+            pickActive();
+          },
+          { threshold: Array.from({ length: 21 }, (_, i) => i / 20) }
+        );
+        obs.observe(el);
+        observers.push(obs);
+      });
+    };
+
+    // Retry every 200ms until all section elements are found in the DOM
+    // (sections only render after the loading screen clears)
+    const sectionIds = Object.keys(SECTION_TO_BG);
+    const tryAttach = () => {
+      const allFound = sectionIds.every((id) => !!document.getElementById(id));
+      if (allFound) {
+        attachObservers();
+      } else {
+        retryTimer = window.setTimeout(tryAttach, 200);
+      }
+    };
+
+    let retryTimer = window.setTimeout(tryAttach, 200);
+
+    return () => {
+      clearTimeout(retryTimer);
+      observers.forEach((o) => o.disconnect());
+    };
   }, []);
 
   return (
