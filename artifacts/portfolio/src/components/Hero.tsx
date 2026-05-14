@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Github, Linkedin, ChevronDown } from "lucide-react";
 import { HeroCanvas } from "./HeroCanvas";
 import portfolioData from "@/data/portfolio.json";
-import profileImg from "@assets/file_00000000a5847208acf1d5dfa0346074_1778781548461.png";
+import profileImg from "@assets/file_000000005a107208ad95748bd17b85c8_1778781992972.png";
 
 export function Hero() {
   const imageRef = useRef<HTMLDivElement>(null);
