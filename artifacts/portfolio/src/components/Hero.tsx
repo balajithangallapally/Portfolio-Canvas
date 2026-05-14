@@ -1,32 +1,10 @@
-import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, ChevronDown } from "lucide-react";
 import { HeroCanvas } from "./HeroCanvas";
 import portfolioData from "@/data/portfolio.json";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
 
 export function Hero() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (containerRef.current) {
-      gsap.to(containerRef.current, {
-        yPercent: 50,
-        ease: "none",
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: "bottom top",
-          scrub: true,
-        },
-      });
-    }
-  }, []);
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -38,20 +16,26 @@ export function Hero() {
   };
 
   const nameVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { staggerChildren: 0.05 } },
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.04, delayChildren: 0.3 },
+    },
   };
 
   const letterVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 },
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20">
+    <section
+      id="home"
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-20"
+    >
       <HeroCanvas />
-      
-      <div ref={containerRef} className="container mx-auto px-6 lg:px-12 relative z-10">
+
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -66,11 +50,16 @@ export function Hero() {
             variants={nameVariants}
             initial="hidden"
             animate="visible"
-            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4 text-foreground"
+            className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-4 text-foreground flex flex-wrap"
+            data-testid="text-hero-name"
           >
             {portfolioData.name.split("").map((char, index) => (
-              <motion.span key={index} variants={letterVariants} className={char === " " ? "mr-4" : ""}>
-                {char}
+              <motion.span
+                key={index}
+                variants={letterVariants}
+                className={char === " " ? "mr-4" : ""}
+              >
+                {char === " " ? "\u00A0" : char}
               </motion.span>
             ))}
           </motion.h1>
@@ -78,7 +67,7 @@ export function Hero() {
           <motion.h2
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1 }}
+            transition={{ duration: 1, delay: 1.2 }}
             className="text-2xl md:text-4xl font-semibold text-muted-foreground mb-6"
           >
             {portfolioData.role}
@@ -87,7 +76,7 @@ export function Hero() {
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 1, delay: 1.2 }}
+            transition={{ duration: 1, delay: 1.5 }}
             className="text-lg text-muted-foreground mb-10 max-w-2xl leading-relaxed"
           >
             {portfolioData.tagline}
@@ -96,13 +85,14 @@ export function Hero() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 1.5 }}
+            transition={{ duration: 0.5, delay: 1.8 }}
             className="flex flex-wrap items-center gap-4"
           >
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-6 rounded-full shadow-[0_0_20px_rgba(0,240,255,0.3)] hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] transition-all"
               onClick={() => scrollToSection("projects")}
+              data-testid="button-view-projects"
             >
               View Projects
             </Button>
@@ -111,10 +101,11 @@ export function Hero() {
               variant="outline"
               className="border-border hover:bg-accent/10 px-8 py-6 rounded-full"
               onClick={() => scrollToSection("contact")}
+              data-testid="button-contact-me"
             >
               Contact Me
             </Button>
-            
+
             <div className="flex items-center gap-2 ml-4">
               <a
                 href={portfolioData.links.github}
@@ -142,9 +133,10 @@ export function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
+        transition={{ delay: 2.2, duration: 1 }}
         className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 cursor-pointer text-muted-foreground hover:text-primary transition-colors z-10"
         onClick={() => scrollToSection("about")}
+        data-testid="button-scroll-down"
       >
         <span className="text-xs uppercase tracking-widest font-mono">Scroll</span>
         <motion.div

@@ -3,7 +3,6 @@ import { ThemeToggle } from "./ThemeToggle";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import gsap from "gsap";
 
 const navLinks = [
   { name: "Home", id: "home" },
@@ -26,28 +25,6 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  useEffect(() => {
-    if (isScrolled) {
-      gsap.to("#navbar", {
-        backgroundColor: "hsl(var(--background) / 0.8)",
-        backdropFilter: "blur(12px)",
-        borderBottom: "1px solid hsl(var(--border))",
-        paddingTop: "0.75rem",
-        paddingBottom: "0.75rem",
-        duration: 0.3,
-      });
-    } else {
-      gsap.to("#navbar", {
-        backgroundColor: "transparent",
-        backdropFilter: "blur(0px)",
-        borderBottom: "1px solid transparent",
-        paddingTop: "1.25rem",
-        paddingBottom: "1.25rem",
-        duration: 0.3,
-      });
-    }
-  }, [isScrolled]);
-
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -62,9 +39,17 @@ export function Navbar() {
   return (
     <nav
       id="navbar"
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 lg:px-12 flex items-center justify-between"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 lg:px-12 flex items-center justify-between py-5 ${
+        isScrolled
+          ? "bg-background/80 backdrop-blur-xl border-b border-border shadow-lg py-3"
+          : "bg-transparent border-b border-transparent"
+      }`}
     >
-      <div className="font-mono text-xl font-bold tracking-tighter cursor-pointer flex items-center gap-2" onClick={() => scrollToSection("home")}>
+      <div
+        className="font-mono text-xl font-bold tracking-tighter cursor-pointer flex items-center gap-2"
+        onClick={() => scrollToSection("home")}
+        data-testid="nav-logo"
+      >
         <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
           B
         </div>
@@ -77,6 +62,7 @@ export function Navbar() {
             <li key={link.id}>
               <button
                 onClick={() => scrollToSection(link.id)}
+                data-testid={`nav-link-${link.id}`}
                 className={`text-sm font-medium transition-colors hover:text-primary relative py-2 ${
                   activeId === link.id ? "text-primary" : "text-muted-foreground"
                 }`}
@@ -101,6 +87,7 @@ export function Navbar() {
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           className="p-2 text-foreground"
           aria-label="Toggle menu"
+          data-testid="button-mobile-menu"
         >
           {mobileMenuOpen ? <X /> : <Menu />}
         </button>
@@ -118,6 +105,7 @@ export function Navbar() {
               <button
                 key={link.id}
                 onClick={() => scrollToSection(link.id)}
+                data-testid={`mobile-nav-link-${link.id}`}
                 className={`text-left text-lg font-medium py-2 ${
                   activeId === link.id ? "text-primary" : "text-foreground"
                 }`}
