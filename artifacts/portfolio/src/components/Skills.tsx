@@ -27,7 +27,7 @@ export function Skills() {
   };
 
   return (
-    <section id="skills" className="py-24 relative overflow-hidden bg-muted/30">
+    <section id="skills" className="py-24 relative overflow-hidden">
       <div className="container mx-auto px-6 lg:px-12">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
