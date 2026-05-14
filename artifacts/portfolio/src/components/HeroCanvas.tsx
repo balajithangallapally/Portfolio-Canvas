@@ -40,8 +40,8 @@ export function HeroCanvas() {
         y: Math.random() * height,
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
-        radius: Math.random() * 1.8 + 0.4,
-        alpha: Math.random() * 0.6 + 0.2,
+        radius: Math.random() * 1.4 + 0.3,
+        alpha: Math.random() * 0.35 + 0.1,
         color: colors[Math.floor(Math.random() * colors.length)],
       }));
     };

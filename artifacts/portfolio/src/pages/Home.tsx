@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { LoadingScreen } from "@/components/LoadingScreen";
+import { ScrollBackground } from "@/components/ScrollBackground";
 import { CustomCursor } from "@/components/CustomCursor";
 import { Navbar } from "@/components/Navbar";
 import { Hero } from "@/components/Hero";
@@ -26,16 +27,17 @@ export default function Home() {
 
   return (
     <>
+      <ScrollBackground />
       <LoadingScreen isLoading={isLoading} />
       <CustomCursor />
-      
+
       <AnimatePresence>
         {!isLoading && (
-          <motion.main 
+          <motion.main
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="min-h-screen bg-background relative selection:bg-primary/30 font-sans"
+            className="min-h-screen relative selection:bg-primary/30 font-sans"
           >
             <Navbar />
             <Hero />
