@@ -13,7 +13,7 @@ export function About() {
           transition={{ duration: 0.6 }}
           className="mb-16"
         >
-          <h2 className="text-3xl md:text-4xl font-bold inline-block relative mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold inline-block relative mb-4 heading-gradient">
             About Me
             <div className="absolute -bottom-2 left-0 w-1/2 h-1 bg-primary rounded-full" />
           </h2>

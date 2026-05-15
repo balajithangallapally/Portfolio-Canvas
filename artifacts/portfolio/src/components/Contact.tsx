@@ -34,7 +34,7 @@ export function Contact() {
             <Mail className="w-6 h-6 text-primary" />
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Let's Build Something</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 heading-gradient inline-block">Let's Build Something</h2>
           
           <p className="text-lg text-muted-foreground mb-12">
             I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!

@@ -36,7 +36,7 @@ export function Skills() {
           transition={{ duration: 0.6 }}
           className="mb-16 text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-bold inline-block relative mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold inline-block relative mb-4 heading-gradient">
             Technical Arsenal
             <div className="absolute -bottom-2 left-1/4 right-1/4 h-1 bg-primary rounded-full" />
           </h2>
