@@ -34,6 +34,8 @@ export function Navbar() {
     setMobileMenuOpen(false);
   };
 
+  const overDark = !isScrolled;
+
   return (
     <nav
       id="navbar"
@@ -44,7 +46,9 @@ export function Navbar() {
       }`}
     >
       <div
-        className="font-mono text-xl font-bold tracking-tighter cursor-pointer flex items-center gap-2"
+        className={`font-mono text-xl font-bold tracking-tighter cursor-pointer flex items-center gap-2 transition-colors duration-300 ${
+          overDark ? "text-white" : "text-foreground"
+        }`}
         onClick={() => scrollToSection("home")}
         data-testid="nav-logo"
       >
@@ -62,7 +66,11 @@ export function Navbar() {
                 onClick={() => scrollToSection(link.id)}
                 data-testid={`nav-link-${link.id}`}
                 className={`text-sm font-medium transition-colors hover:text-primary relative py-2 ${
-                  activeId === link.id ? "text-primary" : "text-muted-foreground"
+                  activeId === link.id
+                    ? "text-primary"
+                    : overDark
+                    ? "text-white/75"
+                    : "text-muted-foreground"
                 }`}
               >
                 {link.name}

@@ -30,6 +30,7 @@ interface SectionBgProps {
 function SectionBg({ src, position, overlay, children }: SectionBgProps) {
   return (
     <div
+      className="dark"
       style={{
         position: "relative",
         backgroundImage: `url(${src})`,
