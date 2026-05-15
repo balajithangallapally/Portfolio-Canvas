@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import portfolioData from "@/data/portfolio.json";
+import { usePortfolioContext } from "@/contexts/PortfolioDataContext";
 import { Mail, Github, Linkedin, Copy, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 
 export function Contact() {
+  const portfolioData = usePortfolioContext();
   const { toast } = useToast();
   const [copied, setCopied] = useState(false);
 

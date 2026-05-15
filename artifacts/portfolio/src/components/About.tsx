@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import portfolioData from "@/data/portfolio.json";
+import { usePortfolioContext } from "@/contexts/PortfolioDataContext";
 import { Terminal, Database, Server } from "lucide-react";
 
 export function About() {
+  const portfolioData = usePortfolioContext();
   return (
     <section id="about" className="py-24 lg:py-32 relative">
       <div className="container mx-auto px-6 lg:px-12">

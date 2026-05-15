@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { LoadingScreen } from "@/components/LoadingScreen";
 import { CustomCursor } from "@/components/CustomCursor";
 import { Navbar } from "@/components/Navbar";
+import { PortfolioDataProvider } from "@/contexts/PortfolioDataContext";
 import { Hero } from "@/components/Hero";
 import { About } from "@/components/About";
 import { Education } from "@/components/Education";
@@ -80,7 +81,7 @@ export default function Home() {
   }, []);
 
   return (
-    <>
+    <PortfolioDataProvider>
       <LoadingScreen isLoading={isLoading} />
       <CustomCursor />
 
@@ -138,6 +139,6 @@ export default function Home() {
           </motion.main>
         )}
       </AnimatePresence>
-    </>
+    </PortfolioDataProvider>
   );
 }

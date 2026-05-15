@@ -1,8 +1,9 @@
 import { motion } from "framer-motion";
-import portfolioData from "@/data/portfolio.json";
+import { usePortfolioContext } from "@/contexts/PortfolioDataContext";
 import { GraduationCap, Calendar, Building } from "lucide-react";
 
 export function Education() {
+  const portfolioData = usePortfolioContext();
   return (
     <section className="py-12 relative">
       <div className="container mx-auto px-6 lg:px-12">

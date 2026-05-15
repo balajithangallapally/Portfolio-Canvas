@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import portfolioData from "@/data/portfolio.json";
+import { usePortfolioContext } from "@/contexts/PortfolioDataContext";
 import { Code2, Layout, Database, Wrench, Cpu } from "lucide-react";
 
 const skillCategories = [
@@ -11,6 +11,7 @@ const skillCategories = [
 ];
 
 export function Skills() {
+  const portfolioData = usePortfolioContext();
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

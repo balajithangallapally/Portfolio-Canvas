@@ -2,9 +2,10 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Github, Linkedin, ChevronDown } from "lucide-react";
 import { HeroCanvas } from "./HeroCanvas";
-import portfolioData from "@/data/portfolio.json";
+import { usePortfolioContext } from "@/contexts/PortfolioDataContext";
 
 export function Hero() {
+  const portfolioData = usePortfolioContext();
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {

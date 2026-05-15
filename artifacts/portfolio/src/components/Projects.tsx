@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import portfolioData from "@/data/portfolio.json";
+import { usePortfolioContext } from "@/contexts/PortfolioDataContext";
 import { Github, ExternalLink, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { ProjectModal } from "./ProjectModal";
 
 export function Projects() {
+  const portfolioData = usePortfolioContext();
   const [selectedProject, setSelectedProject] = useState<any>(null);
 
   const containerVariants = {

@@ -1,7 +1,8 @@
-import portfolioData from "@/data/portfolio.json";
+import { usePortfolioContext } from "@/contexts/PortfolioDataContext";
 import { Github, Linkedin, Mail } from "lucide-react";
 
 export function Footer() {
+  const portfolioData = usePortfolioContext();
   const currentYear = new Date().getFullYear();
 
   return (
