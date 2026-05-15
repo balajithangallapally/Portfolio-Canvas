@@ -8,6 +8,43 @@ import { requireAuth, type AuthRequest } from "../middlewares/requireAuth.js";
 
 const router = Router();
 
+router.post("/auth/bootstrap", async (req, res) => {
+  const { email, password } = req.body ?? {};
+  if (!email || !password) {
+    res.status(400).json({ error: "Email and password are required" });
+    return;
+  }
+  try {
+    // Check if any admin users exist
+    const [existingUser] = await db
+      .select()
+      .from(adminUsersTable)
+      .limit(1);
+
+    if (existingUser) {
+      res.status(403).json({ error: "Admin user already exists. Cannot bootstrap again." });
+      return;
+    }
+
+    // Hash the password
+    const passwordHash = await bcrypt.hash(String(password), 10);
+
+    // Create the admin user
+    const [user] = await db
+      .insert(adminUsersTable)
+      .values({
+        email: String(email).toLowerCase().trim(),
+        passwordHash,
+      })
+      .returning();
+
+    res.status(201).json({ message: "Admin user created successfully", email: user.email });
+  } catch (err) {
+    req.log.error(err);
+    res.status(500).json({ error: "Failed to create admin user" });
+  }
+});
+
 router.post("/auth/login", async (req, res) => {
   const { email, password } = req.body ?? {};
   if (!email || !password) {
@@ -37,6 +74,20 @@ router.post("/auth/login", async (req, res) => {
   } catch (err) {
     req.log.error(err);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+router.get("/auth/health", async (req, res) => {
+  try {
+    const [existingUser] = await db
+      .select()
+      .from(adminUsersTable)
+      .limit(1);
+
+    res.json({ adminUserExists: !!existingUser });
+  } catch (err) {
+    req.log.error(err);
+    res.status(500).json({ error: "Failed to check admin user status" });
   }
 });
 
